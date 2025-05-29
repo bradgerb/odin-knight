@@ -1,1 +1,1 @@
-# odin-knight
+This project will test knowledge of data structures and search algorithms, by finding the shortest path for a knight to travel from one square on a chessboard to another.
