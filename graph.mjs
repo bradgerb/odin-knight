@@ -66,6 +66,10 @@ class Graph {
             console.log('Invalid input');
         }
     }
+
+    knightMoves(sourceArray, destinationArray) {
+        this.breadthFirstSearch(sourceArray, destinationArray);
+    }
 }
 
 const coordinatesToNode = (array)=> {
