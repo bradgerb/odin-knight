@@ -34,22 +34,20 @@ class Graph {
         const destinationNode = coordinatesToNode(destinationArray);
 
         if (checkValid(sourceArray) && checkValid(destinationArray)) {
-            const queue = [sourceNode];
+            const queue = [[sourceNode, [sourceNode]]];
             const visited = {};
-            //hardcoded for testing
-            let path = [sourceNode, destinationNode];
 
             while (queue.length) {
-                let currentNode = queue.shift();
+                let [currentNode, currentPath] = queue.shift();
                 
                 if (!visited[currentNode]) {
                     if (currentNode === destinationNode) {
                         let pathCoordinates = '';
-                        for (let i = 0; i < path.length; i++) {
-                            pathCoordinates += `[${nodeToCoordinates(path[i])}]`;
+                        for (let i = 0; i < currentPath.length; i++) {
+                            pathCoordinates += `[${nodeToCoordinates(currentPath[i])}]`;
                         }
 
-                        console.log(`You made it in ${path.length - 1} steps!`);
+                        console.log(`You made it in ${currentPath.length - 1} step(s)!`);
                         console.log(`Your path is ${pathCoordinates}`);
                         return true
                     }
@@ -59,7 +57,7 @@ class Graph {
                     let neighborNodes = this.nodes[currentNode].edges;
 
                     for (let i = 0; i < neighborNodes.length; i++) {
-                            queue.push(neighborNodes[i]);
+                        queue.push([neighborNodes[i], [...currentPath, neighborNodes[i]]]);
                     }
                 }
             }
