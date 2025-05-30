@@ -21,3 +21,7 @@ for(let y = 0; y < columns; y++) {
 // console.log(chessboard.nodes[28].edges);
 
 chessboard.breadthFirstSearch([1, 1], [3, 2]);
+chessboard.breadthFirstSearch([1, -1], [3, 2]);
+chessboard.breadthFirstSearch([1, 1], [8, 2]);
+chessboard.breadthFirstSearch([1, 7], [3, 2]);
+chessboard.breadthFirstSearch([6, 1], [3, 5]);
