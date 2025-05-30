@@ -19,17 +19,44 @@ class Graph {
         this.nodes.push(newNode);
     }
 
-    addEdge([sourceX, sourceY], [destinationX, destinationY]) {
-        let sourceNode = coordinatesToNode([sourceX, sourceY]);
-        let destinationNode = coordinatesToNode([destinationX, destinationY]);
+    addEdge(sourceArray, destinationArray) {
+        let sourceNode = coordinatesToNode(sourceArray);
+        let destinationNode = coordinatesToNode(destinationArray);
 
-        if (sourceX >= 0 && sourceX <= rows - 1 &&
-            sourceY >= 0 && sourceY <= columns - 1 &&
-            destinationX >= 0 && destinationX <= rows - 1 &&
-            destinationY >= 0 && destinationY <= columns - 1) {
-                this.nodes[sourceNode].edges.push(destinationNode);
-                this.nodes[destinationNode].edges.push(sourceNode);
+        if (checkValid(sourceArray) && checkValid(destinationArray)) {
+            this.nodes[sourceNode].edges.push(destinationNode);
+            this.nodes[destinationNode].edges.push(sourceNode);
+        }
+    }
+
+    breadthFirstSearch(sourceArray, destinationArray) {
+        const sourceNode = coordinatesToNode(sourceArray);
+        const destinationNode = coordinatesToNode(destinationArray);
+
+        if (checkValid(sourceArray) && checkValid(destinationArray)) {
+            const queue = [sourceNode];
+            const visited = {};
+
+            while (queue.length) {
+                let currentNode = queue.shift();
+                if (!visited[currentNode]) {
+                    if (currentNode === destinationNode) {
+                        return true
+                    }
+                    
+                    visited[currentNode] = true;
+
+                    let neighborNodes = this.nodes[currentNode].edges;
+
+                    for (let i = 0; i < neighborNodes.length; i++) {
+                            queue.push(neighborNodes[i]);
+                    }
+                }
             }
+            return false
+        } else {
+            console.log('Invalid input');
+        }
     }
 }
 
@@ -47,6 +74,16 @@ const nodeToCoordinates = (node)=> {
     let array = [x, y];
 
     return array
+}
+
+const checkValid = (array)=> {
+    let valid = false;
+
+    if (array[0] >= 0 && array[0] <= rows - 1 &&
+        array[1] >= 0 && array[1] <= columns - 1) {
+            valid = true
+    }
+    return valid
 }
 
 export { rows, columns, Graph }
