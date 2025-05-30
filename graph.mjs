@@ -36,11 +36,15 @@ class Graph {
         if (checkValid(sourceArray) && checkValid(destinationArray)) {
             const queue = [sourceNode];
             const visited = {};
+            let steps = 0;
 
             while (queue.length) {
                 let currentNode = queue.shift();
+                
                 if (!visited[currentNode]) {
                     if (currentNode === destinationNode) {
+                        console.log(visited);
+                        console.log(`You made it in ${steps} steps!`);
                         return true
                     }
                     
@@ -52,6 +56,7 @@ class Graph {
                             queue.push(neighborNodes[i]);
                     }
                 }
+                steps++
             }
             return false
         } else {
