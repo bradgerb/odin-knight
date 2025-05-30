@@ -17,5 +17,7 @@ for(let y = 0; y < columns; y++) {
     }
 }
 
-console.log(chessboard);
-console.log(chessboard.nodes[28].edges);
+// console.log(chessboard);
+// console.log(chessboard.nodes[28].edges);
+
+console.log(chessboard.breadthFirstSearch([3, 1], [0, 7]));
